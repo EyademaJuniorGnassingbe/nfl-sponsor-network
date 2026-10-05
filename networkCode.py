@@ -7,14 +7,14 @@ import networkx as nx
 import matplotlib.pyplot as plt
 g = nx.Graph()
 
-with open("/Users/eyademagnassingbe/Downloads/NFL brand deals doc(Last 12 months) - Sheet1 (4).csv","r") as in_file:
+with open("nfl_brand_deals.csv","r") as in_file:
         data_set = csv.DictReader(in_file)#makes a dictionary(each row in the google sheet is its own little dictionary) where the column names/headers are the keys and the content in the row are the values
         for team_and_sponsor_info in data_set: #gives a line consisting of the team name,brand name,category,subcategory,and years active
             
             team_name = team_and_sponsor_info["TEAM"] #the specific name of one team
             brand_name = team_and_sponsor_info["BRANDS"] #the specific name of one brand
             
-            #(pertaining to the code below)im building a bipirate graph so i need 2 different nodes
+         #(pertaining to the code below) I'm building a bipartite graph so I need 2 different nodes
             g.add_node(team_name,type = "team") #first node,team and the type is team(need to distinguish between team and brand)
             g.add_node(brand_name,type = "brand")#second node, brand and the type is brand
             
@@ -26,7 +26,7 @@ with open("/Users/eyademagnassingbe/Downloads/NFL brand deals doc(Last 12 months
         
         print("Nodes:", len(g.nodes))
         top_k = 50
-        c_degree = nx.degree_centrality(g) #calculates degree centrality(number of connections in nirmalized form)
+        c_degree = nx.degree_centrality(g)#calculates degree centrality (number of connections in normalized form)
      
         brand_degree = {} #new empty dictionary that will only hold brand nodes and their degree centrality scores
         for node in c_degree: #loops through every node (team and brand mixed) in the original c_degree dictionary
